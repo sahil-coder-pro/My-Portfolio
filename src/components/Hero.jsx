@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { HERO_CONTENT } from '../constants'
 import profilePic from '../assets/profile1.png'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 
 const container = (delay) => ({
     hidden: {x:-100, opacity: 0},
@@ -15,42 +15,97 @@ const container = (delay) => ({
 
 function Hero() {
 
-  // const subHeadings = ["Full Stack Developer", "Software Developer", "Web Developer"] ;
-  // let i = 0 ;
+  const subHeadings = ["Full Stack Developer   ", "Software Developer   ", "Web Developer   "] ;
+  // extra space in front in first because till the time page is loaded it gets updated multiple times
+  // extra spaces in end, so that one can read the full word or else it the word will start to remove, which makes it unreadable
 
-  const subHeading = "Full Stack Developer" ;
+  const i = useRef(0) ;
+  const wordIter = useRef(1) ;
+  const reverse = useRef(false); 
+
+  // let subHeading =   subHeadings[i.current] ;
+
+
+  // console.log(i) ;
+  // console.log(subHeading) ;
+  // console.log(subHeading.length) ;
 
   // const [subHeadingIdx, setSubHeadingIdx] = useState(subHeadings[i].length) ;
-  const [subHeadingIdx, setSubHeadingIdx] = useState(subHeading.length) ;
+  // const [subHeadingIdx, setSubHeadingIdx] = useState(subHeading.length) ;
+  const [subHeading, setSubHeading] = useState(subHeadings[i.current]) ;
 
   
+  // useEffect(() => {
+    
+  //   let typeWriter ;
+  //   // setSubHeadingIdx(1) ;
+
+  //   const delayTime = setTimeout(() => {
+      
+  //     console.log("\n\nNew Entry \n\n")
+      
+  //     typeWriter = setInterval(() => {
+  //       setSubHeadingIdx(prev => {
+  //         // console.log(i) ;
+  //         console.log(subHeading) ;
+  //         console.log(subHeading.length) ;
+  //         console.log(subHeadings)
+  //         console.log(prev, "prev") ;
+  //         console.log(i.current)
+  //         // return prev === subHeading.length ? 1 && ++i.current : prev+1 ;
+  //           if (prev === subHeading.length)  {
+    //             i.current = (i.current+1)%subHeadings.length ;
+    //             return 1 ;
+    //           }
+    //           else {
+      //               return prev + 1 ;
+      //             }
+      //           }) ;
+      //       }, 250);
+      //     }, 0);
+      
+      //   return () => {
+        //     if (delayTime) clearTimeout(delayTime) ;
+        //     if (typeWriter) clearInterval(typeWriter) ;
+        //   }
+        
+        // }, [i])
+        
   useEffect(() => {
 
-    const delayTime = setTimeout(() => {}, 2000);
 
-    const typeWriter = setInterval(() => {
-      setSubHeadingIdx(prev => {
-        // console.log(i) ;
-        return prev === subHeading.length ? 1 : prev+1 ;
-        // if (prev === subHeadings[i].length)  {
-        //   i = (i+1)%subHeadings.length ;
-        //   return 1 ;
-        // }
-        // else {
-        //   return prev + 1 ;
-        // }
-      }) ;
-    }, 250);
+    let typeWriterTimeOut = setTimeout(() => {
 
+      // console.log("i", i.current) ;
+      // console.log("wordIter", wordIter.current) ;
+      // console.log(reverse.current) ;
+
+      setSubHeading(subHeadings[i.current].substring(0, wordIter.current)) ;
+      
+      if (wordIter.current === 0 && reverse.current) {
+        i.current = (i.current+1) % subHeadings.length ;
+        reverse.current = false ;
+      }
+
+      if (wordIter.current === subHeadings[i.current].length) {
+        reverse.current = true ;
+      }
+
+      if (reverse.current) {
+        wordIter.current-- ;
+      }
+      else wordIter.current++ ;
+
+    }, reverse.current ? 80 : 180);
+  
     return () => {
-      clearTimeout(delayTime) ;
-      clearInterval(typeWriter) ;
+      clearTimeout(typeWriterTimeOut) ;
     }
-
-  }, [])
+  }, [subHeading])
+  
 
   return (
-    <div className='border-b border-neutral-900 pb-4 lg:mb-35 px-4'>
+    <div className='border-b border-neutral-800  pb-8 lg:mb-35 px-4'>
       
       <div className='flex flex-wrap'>
 
@@ -72,8 +127,9 @@ function Hero() {
 
                 className='bg-gradient-to-r from-pink-300 via-slate-500 to-purple-500 bg-clip-text text-transparent text-4xl tracking-tight'>{
                   // subHeadings[i].substring(0, subHeadingIdx)
-                  subHeading.substring(0, subHeadingIdx)
-                }</motion.span>
+                  // subHeading.substring(0, subHeadingIdx)
+                  subHeading ? subHeading : <p className='invisible'>a</p>
+                }   </motion.span>
 
                 <motion.p 
                 variants={container(1)}

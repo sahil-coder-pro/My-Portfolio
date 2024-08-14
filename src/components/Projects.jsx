@@ -1,6 +1,8 @@
 import React from 'react'
 import { PROJECTS } from '../constants'
 import { motion } from 'framer-motion'
+import { TbExternalLink } from "react-icons/tb";
+
 
 function Projects() {
   return (
@@ -32,12 +34,10 @@ function Projects() {
                     className='w-full max-w-xl lg:w-3/4 '>
                         <h6 className='mb-2 font-semibold text-xl'>{project.title}</h6>
                         <p className="mb-4 text-neutral-400">{project.description}</p>
-                        <p className="mb-4  text-purple-500 hover:text-purple-700"><a href={project.link} target='_blank'>
-                          
+                        <span className="mb-4  text-purple-500 hover:text-purple-700"><a href={project.link} className='' target='_blank'>Checkout Project
+                          </a>
 
-                          Checkout Project 
-
-                          </a></p>
+                          </span>
 
                         <div className='flex flex-wrap'>
                           {

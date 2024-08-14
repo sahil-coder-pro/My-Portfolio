@@ -10,7 +10,7 @@ import Footer from './components/Footer'
 function App() {
 
   return (
-    <div className='overflow-x-hidden text-neutral-300 antialiased selection:bg-cyan-300 selection:text-cyan-900'>
+    <div className='overflow-x-hidden text-neutral-300 antialiased selection:bg-cyan-300 selection:text-cyan-900 h-screen'>
 
 
       {/* this is giving the background */}
