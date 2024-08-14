@@ -14,7 +14,7 @@ function Navbar() {
         </div>
         <div className='text-3xl font-medium  text-white/70 hover:text-white'>
             {/* <a href="https://drive.google.com/file/d/16tUcGXiA3rw78FrXBhw-gpfmSu_6ZINg/view?usp=sharing" target='_blank'>Resume</a> */}
-            <a className='hover:text-white' href="https://www.linkedin.com/in/sahil-gupta-617116216/" target='_blank'><BsFileText /></a>
+            <a className='hover:text-white' href="https://drive.google.com/file/d/1pRuh6x4NipYk5CmNJJBVNowUk5X_Ndhf/view?usp=sharing" target='_blank'><BsFileText /></a>
         </div>
         <div className='flex items-center justify-center gap-4 text-3xl text-white/70'>
             <a className='hover:text-white' href="https://www.linkedin.com/in/sahil-gupta-617116216/" target='_blank'><FaLinkedin /></a>
